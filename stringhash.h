@@ -10,10 +10,10 @@
 #include <cstdint>
 #include <cctype>
 
-using std::domain_error
-using std::uint32_t
-using std::string
-using std::isdigit
+using std::uint32_t;
+using std::string;
+using std::isdigit;
+
 namespace utils {
 // Helper function - maps chars to uint32_t
 // @param chr
@@ -26,13 +26,13 @@ uint32_t mapchar(char chr)
     } else if (islower(chr)) {
         return static_cast<uint32_t>(chr-'a');
     } else {
-        throw domain_error("Invalid char provided to mapchar.");
+		return 1;
     }
 }
 
 // Key assumed to be d11ddd-1
 // @param key[]: chars that makeup key (in specified format)
-uint32_t hash(char key[])
+uint32_t strhash(char *key)
 {
     int i;
     uint32_t B, A = 0, cumulative_weight = 1;
@@ -61,7 +61,7 @@ uint32_t hashstring(string str, uint32_t seed, uint32_t size)
 {
     uint32_t result = seed;
     for (string::iterator it = str.begin(); it < str.end(); it++) {
-        result ^= ((result << LSHIFT) + (result >> RSHFIT) + *it);
+        result ^= ((result << LSHIFT) + (result >> RSHIFT) + *it);
     }
     return result / size;
 }

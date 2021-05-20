@@ -32,6 +32,6 @@ def hasher(key):
 def hashstring(String, seed, size):
     result = seed
     for char in String:
-        result ^= ((result << LEFTSHIFT) + (result >> RSHIFT) + c)
+        result ^= ((result << LEFTSHIFT) + (result >> RSHIFT) + char)
     return result // size
 
